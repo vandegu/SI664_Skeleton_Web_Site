@@ -33,10 +33,12 @@ class BooksInstanceInline(admin.TabularInline):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'display_genre')
+    list_display = ('title','author')
+    # The below line causes a bug..."BookAdmin has no attibute 'genre'"    
+#    list_display = ('title', 'author', 'display_genre')
     inlines = [BooksInstanceInline]
 
-    def display_genre(self):
+    def display_genre(self,a):
         """Create a string for the Genre. This is required to display genre in Admin."""
         return ', '.join(genre.name for genre in self.genre.all()[:3])
 
