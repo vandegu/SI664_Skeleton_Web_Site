@@ -1,5 +1,7 @@
 from django.urls import path
+from django.conf.urls import include
 from . import views
+
 
 # Arguments of path function: a URL pattern, a view function that will be called if the URL pattern is 
 # detected (this one comes from the function index() in the views.py file), and a name that we can use in 
@@ -33,8 +35,3 @@ if settings.DEBUG:
         }),
     ]
 
-#Add Django site authentication urls (for login, logout, password management). These are default auth urls.
-#For more info, see https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication about a quarter down.
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]
