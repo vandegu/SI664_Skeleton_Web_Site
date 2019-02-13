@@ -140,3 +140,33 @@ def renew_book_librarian(request, pk):
     }
 
     return render(request, 'catalog/book_renew_librarian.html', context)
+
+
+
+
+
+# We can also use Django's generic editing (CRUD) views - Create, Update, Delete.
+# The Create- and Update-inherited classes need to specify what fields are shown, and can be done in several ways (both shown).
+# The Delete-inherited class just needs the success url. 
+# Important: The default template for Create and Update is model_name_form.html. Delete is model_name_confirm_delete.html.
+
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+
+from catalog.models import Author
+
+class AuthorCreate(LoginRequiredMixin,CreateView):
+    model = Author
+    fields = '__all__'
+    initial = {'date_of_death': '05/01/2018'}
+
+class AuthorUpdate(LoginRequiredMixin,UpdateView):
+    model = Author
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+
+class AuthorDelete(LoginRequiredMixin,DeleteView):
+    model = Author
+    # We are lazy because we are providing a URL for a class-based view, not a function-based one?
+    success_url = reverse_lazy('authors')
+
+
