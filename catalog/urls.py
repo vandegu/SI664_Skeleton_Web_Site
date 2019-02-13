@@ -36,6 +36,13 @@ if settings.DEBUG:
     ]
 
 
+# Registration/authentication/permission tutorial pages:
 urlpatterns += [   
     path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+    path('borrowed/', views.LoanedBooksAll.as_view(), name='all-borrowed'),
+]
+
+# Form tutorial pages (note that the <uuid:pk> will look for a properly-formatted uuid and pass it into the view as pk):
+urlpatterns += [
+    path('book/<uuid:pk>/renew/', views.renew_book_librarian, name='renew-book-librarian'),
 ]

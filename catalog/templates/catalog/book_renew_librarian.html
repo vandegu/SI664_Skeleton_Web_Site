@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Renew: {{ book_instance.book.title }}</h1>
+  <p>Borrower: {{ book_instance.borrower }}</p>
+  <p{% if book_instance.is_overdue %} class="text-danger"{% endif %}>Due date: {{ book_instance.due_back }}</p>
+  
+  <!-- The action="" posts this response back to the current URL of the page. This will trigger the POST part 
+  of the conditional in the views.py -->
+  <form action="" method="post">
+    <!-- This token is part of Django's cross-site forgery protection -->
+    <!-- DO THIS FOR EVERY POST FORM YOU MAKE! -->
+    {% csrf_token %}
+    <table>
+    <!-- The following line renders the data in the form (all fields, errors, etc) as an HTML table...this is just a shortcut.
+    It is also possible to have control over individual parts of the form for templating...see the below url.
+    https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms -->
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
